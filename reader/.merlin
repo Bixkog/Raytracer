@@ -1,0 +1,7 @@
+REC
+PKG yojson
+
+S .
+
+B +yojson
+B ../_build/**

@@ -57,8 +57,8 @@ let calc_pixel ray =
 	match opt_obj with
 		| None -> Test (* blank pixel *)
 		| Some (obj, hit_point) -> Test;; 
-				(* cast recursive shadow ray *)
-				(* with recursion depth counter *)
+				(* cast recursive(?) shadow ray *)
+				(* with recursion depth counter in future?*)
 
 let make_ray pixel = Test;;
 
