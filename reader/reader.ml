@@ -11,8 +11,9 @@ let parse_sphere json =
 		let color = json |> member "color"
 						 |> to_list |> List.map to_float 
 						 |> Vect.vector_c in
-		let albedo = json |> member "albedo" |> to_float in
-		Sphere.create center radius reflectivity color albedo
+		let ambient = json |> member "ambient" |> to_float in
+		let lambert = json |> member "lambert" |> to_float in
+		Sphere.create center radius reflectivity color ambient lambert
 	with
 		| e -> Printf.printf "Error while reading sphere\n"; raise e
 

@@ -4,23 +4,24 @@ type obj = {
 	radius2 : float;
 	reflectivity : float;
 	color : Vect.vector;
-	albedo : float
+	ambient : float;
+	lambert : float
 }
 
-let create c r refl color albedo = 
+let create c r refl color ambient lambert = 
 		{center = c; 
 		radius = r; 
 		radius2 = r*.r; 
 		reflectivity = refl;
 		color = color;
-		albedo = albedo}
+		ambient = ambient;
+		lambert = lambert}
 
 let normal s pos = Vect.norm (Vect.direction (s.center) pos) 
 
-let color obj = obj.color
 (** sphere -> ray -> hit point *)
 let intersect s r = 
-	let ctc = Vect.direction (s.center) (r.Ray.center) in
+	let ctc = Vect.direction (r.Ray.center) (s.center) in
 	(* length of vector *)
 	let v = Vect.dot ctc (r.Ray.target) in
 	(* v - sqrt(d) = length of intersect_vect *)

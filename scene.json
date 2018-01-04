@@ -1,0 +1,40 @@
+{
+	"lights" : [
+		{
+			"center" : [-10.0, 0.0, 0.0],
+			"color" : [1.0, 1.0, 1.0],
+			"intensity" : 1.0
+		}
+	],
+	"objects" : [
+		{
+			"type" : "sphere",
+			"vals" : {
+				"center" : [-20.0, 2.0, 0.0],
+				"radius" : 3.0,
+				"reflectivity" : 0.0, 
+				"color" : [1.0, 0.0, 1.0],
+				"ambient" : 0.2,
+				"lambert" : 0.9
+			}
+		},
+		{
+			"type" : "sphere",
+			"vals" : {
+				"center" : [-15.0, 2.0, 0.0],
+				"radius" : 0.5,
+				"reflectivity" : 0.0, 
+				"color" : [0.0, 1.0, 1.0],
+				"ambient" : 0.2,
+				"lambert" : 0.8
+			}
+		}
+	],
+	"camera" : {
+		"center" : [10.0, 0.0, 0.0],
+		"direction" : [-1.0, 0.0, 0.0],
+		"width" : 640,
+		"height" : 480, 
+		"fov" : 30.0
+	}
+}

@@ -25,10 +25,11 @@ let () =
 	let output_format = get_format output_file in
 	Printf.printf "Output format %s\n" output_format;
 	let camera, objs, lights = Reader.get_scene input_file in
-	Printf.printf "Read file %s\n" output_file;
+	Printf.printf "Read file %s\n" input_file;
 	let render = Renderer.render camera objs lights in
-	Printf.printf "Rendered scene \n";
+	Printf.printf "Rendered scene\n";
 	match output_format with
-		| "ppm" -> ppm_output camera render output_file
+		| "ppm" -> ppm_output camera render output_file;
+					Printf.printf "Saved render\n"
 		| _ -> failwith("invalid output format")
 

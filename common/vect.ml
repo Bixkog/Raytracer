@@ -7,16 +7,18 @@ let y_v = [0.; 1.; 0.];;
 let z_v = [0.; 0.; 1.];;
 
 let len v = sqrt (List.fold_left (fun s e -> s +. (e**2.)) 0. v)
+let neg v = List.map ( ( *.) (-1.)) v
 let dot v1 v2 = List.fold_left2 (fun s e1 e2 -> s +. (e1 *. e2)) 0. v1 v2
 let add v1 v2 = List.map2 (+.) v1 v2
-let add3 v1 v2 v3 = List.map2 (+.) (List.map2 (+.) v1 v2) v3
+let add3 v1 v2 v3 = add (add v1 v2) v3
 let decr v1 v2 = List.map2 (-.) v1 v2
 let mult v1 v2 = List.map2 ( *.) v1 v2
-let dist p1 p2 = List.fold_left2 (fun s e1 e2 -> s +. (e1 -. e2)**2.) 0. p1 p2
+let dist p1 p2 = sqrt (List.fold_left2 (fun s e1 e2 -> s +. (e1 -. e2)**2.) 0. p1 p2)
 let direction p1 p2 = List.map2 (fun e1 e2 -> e2 -. e1) p1 p2
 let scale v e = List.map (( *.) e) v
 let move p v = List.map2 (+.) p v
 let norm v = let l = len v in List.map (fun e -> e /. l) v
+			 
 
 let cross v1 v2 = let x1::(y1::(z1::_)) = v1 in
 				  let x2::(y2::(z2::_)) = v2 in
@@ -25,11 +27,28 @@ let cross v1 v2 = let x1::(y1::(z1::_)) = v1 in
 					  (scale y_v (x1 *. z2 -. x2 *. z1))
 					  (scale z_v (x1 *. y2 -. x2 *. y1))
 
+let set_max m v1 = List.map (min m) v1
+
 let unpack_v v = v
 let unpack_p p = p
 
 let vector_c l = l
 let point_c l = l
+
+let print_v v = 
+		print_char '[';
+		List.iteri (fun i f -> print_float f;
+							   if i < 2 then print_string "; ")
+					v;
+		print_char ']'
+
+let print_p p = 
+		print_char '[';
+		List.iteri (fun i f -> print_float f;
+							   if i < 2 then print_string "; ")
+					p;
+		print_char ']'
+
 
 let up_v = [0.; 1.; 0.];;
 let zero_v = [0.; 0.; 0.];;
