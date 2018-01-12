@@ -11,24 +11,48 @@
 			"type" : "sphere",
 			"vals" : {
 				"center" : [-20.0, 2.0, 0.0],
-				"radius" : 3.0,
-				"reflectivity" : 0.0, 
+				"radius" : 3.0, 
 				"color" : [1.0, 0.0, 1.0],
 				"ambient" : 0.2,
-				"lambert" : 0.9
+				"lambert" : 0.9,
+				"specular" : 0.6
 			}
 		},
 		{
 			"type" : "sphere",
 			"vals" : {
 				"center" : [-15.0, 2.0, 0.0],
-				"radius" : 0.5,
-				"reflectivity" : 0.0, 
+				"radius" : 0.5, 
 				"color" : [0.0, 1.0, 1.0],
 				"ambient" : 0.2,
-				"lambert" : 0.8
+				"lambert" : 0.8,
+				"specular" : 0.0
+			}
+		},
+		{
+			"type" : "sphere",
+			"vals" : {
+				"center" : [-15.0, 2.0, -2.5],
+				"radius" : 0.5,
+				"color" : [0.0, 1.0, 0.0],
+				"ambient" : 0.2,
+				"lambert" : 0.8,
+				"specular" : 0.0
 			}
 		}
+		// ,
+		// {
+		// 	"type" : "plane",
+		// 	"vals" : {
+		// 		"origin" : [-15.0, -5.0, 0.0],
+		// 		"orientation" : [0.0, 1.0, 0.0],
+		// 		"color" : [0.0, 1.0, 0.0],
+		// 		"ambient" : 0.01,
+		// 		"lambert" : 0.3,
+		// 		"specular" : 0.9
+		// 	}
+		// }
+
 	],
 	"camera" : {
 		"center" : [10.0, 0.0, 0.0],

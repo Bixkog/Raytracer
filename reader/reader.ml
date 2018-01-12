@@ -6,22 +6,42 @@ let parse_sphere json =
 						  |> to_list |> List.map to_float 
 						  |> Vect.point_c in
 		let radius = json |> member "radius" |> to_float in
-		let reflectivity = json |> member "reflectivity" 
-								|> to_float in
 		let color = json |> member "color"
 						 |> to_list |> List.map to_float 
 						 |> Vect.vector_c in
 		let ambient = json |> member "ambient" |> to_float in
 		let lambert = json |> member "lambert" |> to_float in
-		Sphere.create center radius reflectivity color ambient lambert
+		let specular = json |> member "specular" |> to_float in
+		Sphere.create center radius color ambient lambert specular
 	with
 		| e -> Printf.printf "Error while reading sphere\n"; raise e
+
+let parse_plane json = 
+	let open Yojson.Basic.Util in
+	try 
+		let origin = json |> member "origin"
+						  |> to_list |> List.map to_float 
+						  |> Vect.point_c in
+		let orientation = json |> member "orientation"
+						 |> to_list |> List.map to_float 
+						 |> Vect.vector_c in
+		let color = json |> member "color"
+						 |> to_list |> List.map to_float 
+						 |> Vect.vector_c in
+		let ambient = json |> member "ambient" |> to_float in
+		let lambert = json |> member "lambert" |> to_float in
+		let specular = json |> member "specular" |> to_float in
+		Plane.create origin orientation color ambient lambert specular
+	with
+		| e -> Printf.printf "Error while reading plane\n"; raise e
+
 
 let parse_object json =
 	let open Yojson.Basic.Util in 
 	let type_name = json |> member "type" |> to_string in
 	match type_name with
 		| "sphere" -> Scene.Sphere_ (parse_sphere (json |> member "vals"))
+		| "plane" -> Scene.Plane_ (parse_plane (json |> member "vals"))
 		| _ -> failwith("json contains wrong object type\n")
 
 
