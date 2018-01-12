@@ -51,20 +51,21 @@ let lst_intersection objs ray =
 
 let calc_light objs obj hp light = 
 		let normal_v = normal obj hp in
+		let light_dist = Vect.dist hp light.Light.center in
 		let hp' = Vect.move hp (Vect.scale normal_v Common.bias) in
 		let light_v = Vect.norm (Vect.direction hp' light.Light.center) in 
 		let (collider_o, dist) = fst_intersection objs (Ray.create_ray hp' light_v) in
 		match collider_o with
-			| Some collider when obj <> collider ->	Vect.zero_v
+			| Some collider when obj <> collider
+								 && light_dist > dist
+					 ->	Vect.zero_v
 			| _ -> (
 				let light_angle = Vect.dot normal_v light_v in
-				(* Printf.printf "%f " dist; *)
-				(* Vect.print_v normal_v; Vect.print_v light_v; print_float light_angle;print_char '\n'; *)
 				if light_angle <= 0. then 
 					Vect.zero_v
 				else
 					Vect.scale light.Light.color 
-							(light_angle *. light.Light.intensity))
+							(light_angle *. (Light.intens light hp)))
 
 (* gather floats, max at 1 *)
 let calc_lights objs lights obj hp =
@@ -87,7 +88,7 @@ and hit_ray objs lights obj ray dist depth =
 	let refl_color = calc_refl objs lights obj hp ray depth in (* specular *)
 	let color_r = Vect.scale refl_color (specular obj) in
 	let color_a = Vect.scale (color obj) (ambient obj) in (* ambient *)
-	let color_l = Vect.scale (Vect.mult (color obj) lights_color) (lambert obj) in
+	let color_l = Vect.scale lights_color (lambert obj) in
 	(* if Vect.len refl_color > 0. then (Vect.print_v color_r;); *)
 	Vect.set_max 1. (Vect.add3 color_l color_a color_r)
 

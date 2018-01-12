@@ -14,7 +14,7 @@ let create c r color ambient lambert specular=
 		radius2 = r*.r; 
 		color = color;
 		ambient = ambient;
-		lambert = lambert;
+		lambert = lambert /. Common.pi;
 		specular = specular}
 
 let normal s pos = Vect.norm (Vect.direction (s.center) pos) 

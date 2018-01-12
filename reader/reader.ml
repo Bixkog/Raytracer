@@ -69,7 +69,8 @@ let parse_light json =
 						 |> to_list |> List.map to_float 
 						 |> Vect.vector_c in
 		let intensity = json |> member "intensity" |> to_float in
-		Light.create center color intensity
+		let weakening = json |> member "weakening" |> to_float in
+		Light.create center color intensity weakening
 	with
 		| e -> Printf.printf "Error while reading light\n"; raise e
 

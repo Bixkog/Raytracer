@@ -14,7 +14,7 @@ let create origin orientation color ambient lambert specular =
 		orientation = Vect.norm orientation;
 		color = color;
 		ambient = ambient;
-		lambert = lambert;
+		lambert = lambert /. Common.pi;
 		specular = specular
 	}
 
@@ -31,12 +31,14 @@ let intersect pl ray =
 let reflect pl ray hp = 
 	let pl_normal' = normal pl in (* need correct direction *)
 	let pl_normal  = 
-		(if Vect.dot pl_normal' ray.Ray.target < 0. 
+		(if Vect.dot pl_normal' ray.Ray.target > 0. 
 			then Vect.neg pl_normal'
 			else pl_normal') in
 	let cos_theta = Vect.dot pl_normal ray.Ray.target in
 	let normal' = Vect.scale pl_normal (cos_theta *. 2.) in
 	(* Vect.print_v (Vect.decr normal' ray.Ray.target); print_char '\n'; *)
-	Ray.create_ray 
+	let refl_ray = Ray.create_ray 
 			(Vect.move hp (Vect.scale pl_normal Common.bias))
-			(Vect.decr normal' ray.Ray.target)
+			(Vect.decr ray.Ray.target normal') in
+	(* Ray.print_r refl_ray; print_char '\n'; *)
+	refl_ray
