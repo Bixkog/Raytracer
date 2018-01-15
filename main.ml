@@ -20,14 +20,14 @@ let ppm_output camera render filename =
 
 let () = 
 	let input_file, output_file = get_filename () in
-	Printf.printf "Input file %s\n" input_file;
-	Printf.printf "Output file %s\n" output_file;
+	Printf.printf "Input file %s\n" input_file; flush_all ();
+	Printf.printf "Output file %s\n" output_file; flush_all ();
 	let output_format = get_format output_file in
-	Printf.printf "Output format %s\n" output_format;
+	Printf.printf "Output format %s\n" output_format; flush_all ();
 	let camera, objs, lights = Reader.get_scene input_file in
-	Printf.printf "Read file %s\n" input_file;
+	Printf.printf "Read file %s\n" input_file; flush_all ();
 	let render = Renderer.render camera objs lights in
-	Printf.printf "Rendered scene\n";
+	Printf.printf "Rendered scene\n"; flush_all ();
 	match output_format with
 		| "ppm" -> ppm_output camera render output_file;
 					Printf.printf "Saved render\n"

@@ -23,6 +23,16 @@ val norm : vector -> vector
 val cross : vector -> vector -> vector
 val set_max : e -> vector -> vector
 
+val e_dists : point -> point -> (e * e * e)
+
+val x : vector -> e
+val y : vector -> e
+val z : vector -> e
+
+val px : point -> e
+val py : point -> e
+val pz : point -> e
+
 val unpack_v : vector -> e list
 val unpack_p : point -> e list
 

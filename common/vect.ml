@@ -27,7 +27,27 @@ let cross v1 v2 = let x1::(y1::(z1::_)) = v1 in
 					  (scale y_v (x1 *. z2 -. x2 *. z1))
 					  (scale z_v (x1 *. y2 -. x2 *. y1))
 
-let set_max m v1 = List.map (min m) v1
+let set_max m v1 = 
+		let max_e = List.fold_left max 0. v1 in
+		if max_e > 1. then
+			List.map (fun e -> e /. max_e) v1
+		else
+			v1
+
+let x v = List.hd v
+let y v = List.hd (List.tl v)
+let z v = List.hd (List.tl (List.tl v))
+
+let px p = List.hd p
+let py p = List.hd (List.tl p)
+let pz p = List.hd (List.tl (List.tl p))
+
+
+let e_dists p1 p2 = 
+	let distance e1 e2 = abs_float (e1 -. e2) in
+	(distance (x p1) (x p2),
+	distance (y p1) (y p2),
+	distance (z p1) (z p2))
 
 let unpack_v v = v
 let unpack_p p = p

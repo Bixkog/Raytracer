@@ -45,7 +45,6 @@ let get_rays camera =
 	let pixel_height = camera_height /. (float_of_int (camera.height - 1)) in
 	let right_v = Vect.norm (Vect.cross camera.direction Vect.up_v) in
 	let up_v = Vect.norm (Vect.cross right_v camera.direction) in
-	Printf.printf "Calculated rays\n";
 	Common.unfold 
 		(ray_generator camera half_width half_height 
 					   pixel_width pixel_height right_v up_v)
