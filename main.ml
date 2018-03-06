@@ -24,10 +24,15 @@ let () =
 	Printf.printf "Output file %s\n" output_file; flush_all ();
 	let output_format = get_format output_file in
 	Printf.printf "Output format %s\n" output_format; flush_all ();
-	let camera, objs, lights = Reader.get_scene input_file in
-	Printf.printf "Read file %s\n" input_file; flush_all ();
-	let render = Renderer.render camera objs lights in
-	Printf.printf "Rendered scene\n"; flush_all ();
+	Printf.printf "Reading file %s\n" input_file; flush_all ();
+	let camera, objs, lights, gamma = Reader.get_scene input_file in
+	Scene.objs := objs;
+	(* Printf.printf "Generating octree \n"; flush_all ();
+	Octree.oct := Octree.create objs;
+	Octree.print_octree !Octree.oct; *)
+	Printf.printf "Rendering scene\n"; flush_all ();
+	let render = Renderer.render camera lights gamma in
+	
 	match output_format with
 		| "ppm" -> ppm_output camera render output_file;
 					Printf.printf "Saved render\n"

@@ -40,8 +40,8 @@ let parse_object json =
 	let open Yojson.Basic.Util in 
 	let type_name = json |> member "type" |> to_string in
 	match type_name with
-		| "sphere" -> Scene.Sphere_ (parse_sphere (json |> member "vals"))
-		| "plane" -> Scene.Plane_ (parse_plane (json |> member "vals"))
+		| "sphere" -> Object.Sphere_ (parse_sphere (json |> member "vals"))
+		| "plane" -> Object.Plane_ (parse_plane (json |> member "vals"))
 		| _ -> failwith("json contains wrong object type\n")
 
 
@@ -83,4 +83,5 @@ let get_scene file_name =
 							 |> to_list |> List.map parse_object in
 	let lights = scene_json |> member "lights" |> to_list
 							|> List.map parse_light in
-	(camera, objects, lights)
+	let gamma = scene_json |> member "gamma" |> to_float in
+	(camera, objects, lights, gamma)

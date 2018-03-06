@@ -24,6 +24,7 @@ val cross : vector -> vector -> vector
 val set_max : e -> vector -> vector
 
 val e_dists : point -> point -> (e * e * e)
+val map : (e -> e) -> vector -> vector 
 
 val x : vector -> e
 val y : vector -> e

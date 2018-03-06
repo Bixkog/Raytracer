@@ -45,9 +45,11 @@ let pz p = List.hd (List.tl (List.tl p))
 
 let e_dists p1 p2 = 
 	let distance e1 e2 = abs_float (e1 -. e2) in
-	(distance (x p1) (x p2),
-	distance (y p1) (y p2),
-	distance (z p1) (z p2))
+	(distance (px p1) (px p2),
+	distance (py p1) (py p2),
+	distance (pz p1) (pz p2))
+
+let map f v = List.map f v
 
 let unpack_v v = v
 let unpack_p p = p
